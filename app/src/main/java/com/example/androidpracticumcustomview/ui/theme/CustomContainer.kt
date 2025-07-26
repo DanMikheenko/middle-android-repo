@@ -15,7 +15,8 @@ import android.widget.FrameLayout
  */
 
 class CustomContainer @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
+    context: Context,
+    attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
     init {
@@ -34,7 +35,18 @@ class CustomContainer @JvmOverloads constructor(
     }
 
     override fun addView(child: View) {
-        // TODO
-        // ...
+        if (childCount > 2) {
+            throw IllegalStateException("Контейнер не может содержать более 2-х дочерних View")
+        } else {
+            super.addView(child)
+        }
+
+    }
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        if (childCount > 2) {
+            throw IllegalStateException("Контейнер не может содержать более 2-х дочерних View")
+        }
     }
 }
